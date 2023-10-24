@@ -1,7 +1,8 @@
 #include <iostream>
+#include <vector>
 enum Face
 {
-    None,
+    None = 0,
     Ace,
     Two,
     Three,
@@ -19,22 +20,10 @@ enum Face
 
 enum Suit
 {
-    None,
-    Club,
+    Club = 0,
     Diamond,
-    Club_and_Diamond,
     Heart,
-    Club_and_Heart,
-    Diamond_and_Heart,
-    Club_and_Diamond_and_Heart,
     Spade,
-    Club_and_Spade,
-    Diamond_and_Spade,
-    Club_and_Diamond_and_Spade,
-    Heart_and_Spade,
-    Club_and_Heart_and_Spade,
-    Diamond_and_Heart_and_Spade,
-    Club_and_Diamond_and_Heart_and_Spade,
 };
 
 enum Sticker
@@ -54,7 +43,7 @@ class Card
 {
 private:
     Face face;
-    Suit suit;
+    std::vector<bool> suit; // suit[Club] suit[Diamond] suit[Heart] suit[Spade]
     Sticker sticker;
 
 public:
@@ -62,9 +51,7 @@ public:
     Card(Face, Suit, Sticker);
     void set_face(Face);
     void set_suit(Suit);
+    void set_suit(std::vector<bool>);
     void set_sticker(Sticker);
-    // void set_effect()
-    // void settle_effects(*Board);
-    // void deal_damage(*Board);
     ~Card();
 };
