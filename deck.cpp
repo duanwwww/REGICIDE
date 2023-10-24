@@ -1,6 +1,5 @@
 #include <deck.hpp>
 #include <algorithm>
-#include <random>
 Deck::Deck()
 {
     this->cards.clear();
@@ -28,6 +27,7 @@ void Deck::shuffle()
 
 Card *Deck::draw_card()
 {
+    if (this->cards.empty()) return nullptr;
     Card *tmp = this->cards.front();
     this->cards.pop_front();
     return tmp;
