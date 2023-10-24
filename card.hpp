@@ -45,6 +45,11 @@ enum Sticker
     triangle,
 };
 
+enum CardBack
+{
+    None,
+};
+
 class Card
 {
 private:
