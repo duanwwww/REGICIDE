@@ -10,11 +10,13 @@ Deck::Deck(std::list<Card *> _cards)
     this->cards = _cards;
 }
 
-Deck::Deck(const Deck& _deck){
+Deck::Deck(const Deck &_deck)
+{
     this->card_back = _deck.card_back;
     this->cards.clear();
-    for(auto it = _deck.cards.begin();it != _deck.cards.end();it++){
-        Card* _card = new Card(**it); // copy every card.
+    for (auto it = _deck.cards.begin(); it != _deck.cards.end(); it++)
+    {
+        Card *_card = new Card(**it); // copy every card.
         this->cards.push_back(_card);
     }
 }
@@ -36,7 +38,8 @@ void Deck::shuffle()
 
 Card *Deck::draw_card()
 {
-    if (this->cards.empty()) return nullptr;
+    if (this->cards.empty())
+        return nullptr;
     Card *tmp = this->cards.front();
     this->cards.pop_front();
     return tmp;

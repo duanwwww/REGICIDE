@@ -49,7 +49,7 @@ private:
 public:
     Card();
     Card(Face, Suit, Sticker);
-    Card(const Card&);
+    Card(const Card &);
     void set_face(Face);
     void set_suit(Suit);
     void set_suit(std::vector<bool>);

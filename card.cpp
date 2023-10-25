@@ -14,7 +14,8 @@ Card::Card(Face _face, Suit _suit, Sticker _sticker)
     this->sticker = _sticker;
 }
 
-Card::Card(const Card& _card){
+Card::Card(const Card &_card)
+{
     this->face = _card.face;
     this->suit = _card.suit;
     this->sticker = _card.sticker;
