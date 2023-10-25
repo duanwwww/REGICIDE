@@ -1,5 +1,5 @@
 #include<deck.hpp>
-class Board;
+#include<board.hpp>
 class Character{
 private:
     Deck* cards_in_deck;
@@ -8,6 +8,7 @@ private:
     int max_cards_in_hand;
     Board* board;
     bool not_full_hand();
+    std::vector<int> selected;
 public:
     Character(Deck*, int, int, Board*);
     void set_hp(int);
