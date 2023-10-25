@@ -9,8 +9,10 @@ private:
     bool not_full_hand();
     std::vector<int> selected;
 
-public:
+protected:
     Character(Deck *, int, int);
+
+public:
     void set_hp(int);
     void set_deck(Deck *);
     void set_max_cards_in_hand(int);

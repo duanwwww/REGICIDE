@@ -1,9 +1,21 @@
 #include <vector>
 #include <card.hpp>
+#include<character.hpp>
+class SubBoard
+{
+private:
+    Character* character;
+    Pile activate_pile;
+    int attack_bias_buffs;
+    int attack_coefficient;
+};
+
 class Board
 {
 private:
+    std::vector<SubBoard*> sub_boards;
+    Pile discard_area;
+    Pile settle_area;
 public:
-    void add_to_settle_area(Card *);
-    void add_to_discard_area(Card *);
+    Board(std::vector<Character*>);
 };
