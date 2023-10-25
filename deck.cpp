@@ -10,6 +10,15 @@ Deck::Deck(std::list<Card *> _cards)
     this->cards = _cards;
 }
 
+Deck::Deck(const Deck& _deck){
+    this->card_back = _deck.card_back;
+    this->cards.clear();
+    for(auto it = _deck.cards.begin();it != _deck.cards.end();it++){
+        Card* _card = new Card(**it); // copy every card.
+        this->cards.push_back(_card);
+    }
+}
+
 void Deck::add(Card *_card)
 {
     this->cards.push_back(_card);

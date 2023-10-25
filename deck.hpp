@@ -9,6 +9,7 @@ private:
 public:
     Deck();
     Deck(std::list<Card *>);
+    Deck(const Deck&);
     void add(Card *);
     void add(std::list<Card *>);
     void shuffle();
