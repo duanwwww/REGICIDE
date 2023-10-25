@@ -8,12 +8,14 @@ private:
     int max_cards_in_hand;
     bool not_full_hand();
     std::vector<int> selected;
-
+    int id;
 protected:
     Character(Deck *, int, int);
 
 public:
     void set_hp(int);
+    void get_id();
+    void set_id(int);
     void set_deck(Deck *);
     void set_max_cards_in_hand(int);
     void draw_card();
