@@ -1,12 +1,11 @@
 #include <character.hpp>
 #include <algorithm>
-Character::Character(Deck *_deck, int _hp, int _max_cards_in_hand, Board *_board)
+Character::Character(Deck *_deck, int _hp, int _max_cards_in_hand)
 {
     this->cards_in_deck = new Deck(*_deck);
     this->hp = _hp;
     this->max_cards_in_hand = _max_cards_in_hand;
     this->cards_in_hand.clear();
-    this->board = _board;
 }
 
 bool Character::not_full_hand()
@@ -27,11 +26,6 @@ void Character::set_deck(Deck *_deck)
     this->cards_in_deck = new Deck(*_deck);
 }
 
-void Character::set_board(Board *_board)
-{
-    this->board = _board;
-}
-
 void Character::set_max_cards_in_hand(int _max_cards_in_hand)
 {
     this->max_cards_in_hand = _max_cards_in_hand;
@@ -45,29 +39,27 @@ void Character::set_max_cards_in_hand(int _max_cards_in_hand)
 void Character::draw_card()
 {
     if (this->not_full_hand())
-        this->cards_in_hand.push_back(this->cards_in_deck->draw_card());
+        this->cards_in_hand.add(this->cards_in_deck->draw_card());
 }
 
-void Character::play_cards()
+Pile Character::play_cards()
 {
     std::sort(this->selected.begin(), this->selected.end(), [](int a, int b)
               { return a > b; });
+    Pile tmp_pile;
     for (auto it = this->selected.begin(); it != this->selected.end(); it++)
-    {
-        (*(this->board)).add_to_settle_area(cards_in_hand[*it]);
-        this->cards_in_hand.erase(this->cards_in_hand.begin() + *it);
-    }
+        tmp_pile.add(this->cards_in_hand.erase(*it));
+    return tmp_pile;
 }
 
-void Character::discard()
+Pile Character::discard()
 {
     std::sort(this->selected.begin(), this->selected.end(), [](int a, int b)
               { return a > b; });
+    Pile tmp_pile;
     for (auto it = this->selected.begin(); it != this->selected.end(); it++)
-    {
-        (*(this->board)).add_to_discard_area(cards_in_hand[*it]);
-        this->cards_in_hand.erase(this->cards_in_hand.begin() + *it);
-    }
+        tmp_pile.add(this->cards_in_hand.erase(*it));
+    return tmp_pile;
 }
 
 bool Character::is_dead()

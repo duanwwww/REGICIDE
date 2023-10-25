@@ -72,4 +72,52 @@ void Deck::set_card_back(CardBack _card_back)
     this->card_back = _card_back;
 }
 
-Deck::~Deck() { this->cards.clear(); }
+Deck::~Deck()
+{
+    this->cards.clear();
+}
+
+Pile::Pile()
+{
+    this->card_back = CardBack::None;
+    this->cards.clear();
+}
+
+Pile::Pile(std::vector<Card *> _cards)
+{
+    this->cards = _cards;
+}
+
+void Pile::add(Card *_card)
+{
+    this->cards.push_back(_card);
+}
+
+void Pile::add(std::vector<Card *> _cards)
+{
+    this->cards.insert(this->cards.end(), _cards.begin(), _cards.end());
+}
+
+void Pile::clear()
+{
+    this->cards.clear();
+}
+
+void Pile::set_card_back(CardBack _card_back)
+{
+    this->card_back = _card_back;
+}
+
+int Pile::size()
+{
+    return this->cards.size();
+}
+
+Card *Pile::erase(int index)
+{
+    if (index >= size())
+        return nullptr;
+    Card *tmp_card = this->cards[index];
+    this->cards.erase(this->cards.begin() + index);
+    return tmp_card;
+}

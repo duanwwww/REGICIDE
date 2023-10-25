@@ -1,5 +1,6 @@
 #include <card.hpp>
 #include <List>
+#include <vector>
 class Deck
 {
 private:
@@ -18,4 +19,21 @@ public:
     void set_bottom(Card *);
     void set_card_back(CardBack);
     ~Deck();
+};
+
+class Pile
+{
+private:
+    std::vector<Card *> cards;
+    CardBack card_back;
+
+public:
+    Pile();
+    Pile(std::vector<Card *>);
+    void add(Card *);
+    void add(std::vector<Card *>);
+    void clear();
+    void set_card_back(CardBack);
+    int size();
+    Card *erase(int);
 };
