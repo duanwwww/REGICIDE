@@ -23,3 +23,7 @@ void Battle::settle_effects(){
 void Battle::deal_damage(){
     this->board->deal_damage();
 }
+
+void Battle::end_turn(){
+    this->board->update_counter();
+}

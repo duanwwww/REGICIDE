@@ -2,7 +2,7 @@
 #include <algorithm>
 Character::Character(Deck *_deck, int _hp, int _max_cards_in_hand)
 {
-    this->cards_in_deck = new Deck(*_deck);
+    this->cards_in_deck = _deck;
     this->hp = _hp;
     this->max_cards_in_hand = _max_cards_in_hand;
     this->cards_in_hand.clear();
@@ -20,10 +20,7 @@ void Character::set_hp(int _hp)
 
 void Character::set_deck(Deck *_deck)
 {
-    if (this->cards_in_deck != nullptr)
-        delete this->cards_in_deck;
-    this->cards_in_hand.clear();
-    this->cards_in_deck = new Deck(*_deck);
+    this->cards_in_deck = _deck;
 }
 
 void Character::set_max_cards_in_hand(int _max_cards_in_hand)

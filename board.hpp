@@ -6,7 +6,7 @@ class SubBoard
 private:
     Character* character; 
     Pile activate_pile;
-    int attack_bias_buffs;
+    int attack_bias_buff;
     int attack_coefficient;
     int id;
     SubBoard(Character*);
@@ -20,12 +20,13 @@ private:
     std::vector<SubBoard*> sub_boards; // the first in vector will be the first to act
     Pile discard_area;
     Pile settle_area;
-    int current_character;
-    int target_character;
+    Character* current_character;
+    Character* target_character;
     // Need: a place for effects. maybe a std::vector<std::function>
 public:
     Board(std::vector<Character*>);
     void set_id();
+    Character* find_id(int);
     int select_target(); 
     void play_cards(); 
     void settle_effects(); 

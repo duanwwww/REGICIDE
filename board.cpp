@@ -2,7 +2,7 @@
 SubBoard::SubBoard(Character* _character){
     this->character = character;
     this->activate_pile.clear();
-    this->attack_bias_buffs = 0;
+    this->attack_bias_buff = 0;
     this->attack_coefficient = 1;
 }
 
@@ -13,6 +13,8 @@ Board::Board(std::vector<Character*> _characters){
     }
     this->discard_area.clear();
     this->settle_area.clear();
+    this->current_character = this->sub_boards[0]->character;
+    this->target_character = nullptr;
 }
 
 void Board::set_id(){
@@ -21,7 +23,14 @@ void Board::set_id(){
     }
 }
 
+Character* Board::find_id(int target_id){
+    for(int i=0;i<this->sub_boards.size();i++){
+        if(sub_boards[i]->id == target_id) return sub_boards[i]->character;
+    }
+    return nullptr;
+}
+
 void Board::play_cards(){
-    this->sub_boards[current_character]->character->select_card(true, 0, 1); // must select legal cards, at least 1.
-    this->sub_boards[current_character]->character->play_cards();
+    this->current_character->select_card(true, 0, 1); // must select legal cards, at least 1.
+    this->current_character->play_cards();
 }
