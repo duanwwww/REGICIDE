@@ -6,7 +6,7 @@
 + Card类
   + 卡牌的effect函数还没有编写，因为board类的所有乘区（作为effect的参数）没有确定
   + 卡牌是否需要id
-  + + 如何实现原版那样的多boss衔接？
+  + 如何实现原版那样的多boss衔接？
 + Deck类
   + 还需要哪些功能（？）
 + Character类
