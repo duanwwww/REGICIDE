@@ -47,7 +47,6 @@ public:
 };
 
 class BoardInfo { // HAVE NOT FINISHED
-    // to be fullfill
 private:
     BoardInfo(Board *);
 
