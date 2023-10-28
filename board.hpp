@@ -20,19 +20,20 @@ private:
     std::vector<SubBoard *>
         sub_boards; // the first in vector will be the first to act
     Pile discard_area;
-    SumPile settle_area;
-    Character *current_character;
-    Character *target_character;
+    Pile settle_area;
+    int current_character;
+    int target_character; // -1 for none
     std::vector<Effect> effects;
+    std::vector<int> damage_list;
+    std::vector<bool> available_suit;
     void settle_suits(std::vector<bool>, int);
-    void settle_club(int);    // HAVE NOT FINISHED
-    void settle_diamond(int); // HAVE NOT FINISHED
+    void settle_club(int);    
+    void settle_diamond(int); 
     void settle_heart(int);   // HAVE NOT FINISHED
     void settle_spade(int);   // HAVE NOT FINISHED
 public:
     Board(std::vector<Character *>);
     void set_id();
-    Character *find_id(int); // YOU SHOULD CHECK NULLPTR
     int select_target();     // HAVE NOT FINISHED
     void play_cards();       // HAVE NOT FINISHED
     void settle_effects();

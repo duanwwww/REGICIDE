@@ -35,7 +35,6 @@ enum Sticker {
 enum CardBack {
     None,
 };
-class SumPile;
 
 int face_to_num(Face);
 
@@ -53,6 +52,7 @@ public:
     void set_suit(Suit);
     void set_suit(std::vector<bool>);
     void set_sticker(Sticker);
-    friend SumPile;
     ~Card();
+    friend class Pile;
+    friend class Board;
 };

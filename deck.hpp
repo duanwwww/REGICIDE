@@ -21,7 +21,7 @@ public:
 };
 
 class Pile {
-protected:
+private:
     std::vector<Card *> cards;
     CardBack card_back;
 
@@ -32,12 +32,10 @@ public:
     void add(std::vector<Card *>);
     void clear();
     void set_card_back(CardBack);
+    void shuffle();
     int size();
     Card *erase(int);
-};
-
-class SumPile : public Pile {
-public:
     int sum();                 // sum of faces
     std::vector<bool> suits(); // union of suits
+    friend class Board;
 };

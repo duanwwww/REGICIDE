@@ -16,7 +16,8 @@ public:
     void set_hp(int);
     void set_deck(Deck *);
     void set_max_cards_in_hand(int);
-    void draw_card();
+    bool draw_card();
+    bool full_hand();
     void select_card(bool, int,
                      int); // input:(legal or any?, minimum sum, minimum
                            // number). HAVE NOT FINISHED

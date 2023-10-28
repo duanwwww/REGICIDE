@@ -105,7 +105,7 @@ Card *Pile::erase(int index) {
     return tmp_card;
 }
 
-int SumPile::sum() {
+int Pile::sum() {
     int _sum = 0;
     for (auto it = this->cards.begin(); it != this->cards.end(); it++) {
         _sum += face_to_num((*it)->face);
@@ -113,7 +113,7 @@ int SumPile::sum() {
     return _sum;
 }
 
-std::vector<bool> SumPile::suits() {
+std::vector<bool> Pile::suits() {
     std::vector<bool> _suits = {false, false, false, false};
     for (auto it = this->cards.begin(); it != this->cards.end(); it++) {
         _suits[Club] = (*it)->suit[Club] || _suits[Club];
@@ -122,4 +122,11 @@ std::vector<bool> SumPile::suits() {
         _suits[Spade] = (*it)->suit[Spade] || _suits[Spade];
     }
     return _suits;
+}
+
+void Pile::shuffle() {
+    std::random_shuffle(
+        this->cards.begin(),
+        this->cards
+            .end()); //  this will be overwrite if we want to set random seed
 }

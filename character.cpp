@@ -11,6 +11,10 @@ bool Character::not_full_hand() {
     return this->cards_in_hand.size() < this->max_cards_in_hand;
 }
 
+bool Character::full_hand() {
+    return this->cards_in_hand.size() == this->max_cards_in_hand;
+}
+
 void Character::set_hp(int _hp) {
     this->hp = _hp;
 }
@@ -28,9 +32,14 @@ void Character::set_max_cards_in_hand(int _max_cards_in_hand) {
     }
 }
 
-void Character::draw_card() {
-    if (this->not_full_hand())
-        this->cards_in_hand.add(this->cards_in_deck->draw_card());
+bool Character::draw_card() {
+    if (this->not_full_hand()){
+        Card* card = this->cards_in_deck->draw_card();
+        if (card == nullptr) return false;
+        this->cards_in_hand.add(card);
+        return true;
+    }
+    return false;
 }
 
 Pile Character::play_cards() {
