@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
-enum Face
-{
+enum Face {
     None = 0,
     Ace,
     Two,
@@ -16,31 +15,31 @@ enum Face
     Jack,
     Queen,
     King,
+    Joker,
 };
 
-enum Suit
-{
+enum Suit {
     Club = 0,
     Diamond,
     Heart,
     Spade,
 };
 
-enum Sticker
-{
+enum Sticker {
     None,
     Circle,
     Square,
     triangle,
 };
 
-enum CardBack
-{
+enum CardBack {
     None,
 };
+class SumPile;
 
-class Card
-{
+int face_to_num(Face);
+
+class Card {
 private:
     Face face;
     std::vector<bool> suit; // suit[Club] suit[Diamond] suit[Heart] suit[Spade]
@@ -54,5 +53,6 @@ public:
     void set_suit(Suit);
     void set_suit(std::vector<bool>);
     void set_sticker(Sticker);
+    friend SumPile;
     ~Card();
 };
