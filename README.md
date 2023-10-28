@@ -1,6 +1,7 @@
 # REGICIDE
 ### 原版游戏规则
 网站: https://badgersfrommars.com/pages/learn-to-play-regicide
+
 规则pdf: https://www.regicidegame.com/site_files/33132/upload_files/RegicideRulesA4.pdf?dl=1
 ### 未完成的工作
 + 整体工作
