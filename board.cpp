@@ -19,38 +19,50 @@ Board::Board(std::vector<Character *> _characters) {
 }
 
 void Board::settle_suits(std::vector<bool> suits, int sum) {
+    if (suits[Suit::Heart] && this->available_suit[Suit::Heart]) {
+        this->settle_heart(sum);
+    } // Heart should settle before diamond
     if (suits[Suit::Club] && this->available_suit[Suit::Club]) {
         this->settle_club(sum);
     }
     if (suits[Suit::Diamond] && this->available_suit[Suit::Diamond]) {
         this->settle_diamond(sum);
     }
-    if (suits[Suit::Heart] && this->available_suit[Suit::Heart]) {
-        this->settle_heart(sum);
-    }
     if (suits[Suit::Spade] && this->available_suit[Suit::Spade]) {
         this->settle_spade(sum);
     }
 }
 
-void Board::settle_club(int sum){
+void Board::settle_club(int sum) {
     this->damage_list.push_back(sum);
 }
 
-void Board::settle_diamond(int sum){
-    int id = current_character;
+void Board::settle_diamond(int sum) {
+    int id = this->current_character;
     int flag = 0;
-    while(sum > 0){
-        if(this->sub_boards[id]->character->draw_card()){
+    while (sum > 0) {
+        if (this->sub_boards[id]->character->draw_card()) {
             sum--;
             flag = 0;
         }
-        else{
+        else {
             flag++;
         }
-        id = (id+1) % this->sub_boards.size();
-        if(flag == this->sub_boards.size()) break;
+        id = (id + 1) % this->sub_boards.size();
+        if (flag == this->sub_boards.size())
+            break;
     }
+}
+
+void Board::settle_heart(int sum) {
+    this->discard_area.shuffle();
+    int min = sum;
+    if (this->discard_area.size() < sum)
+        min = this->discard_area.size();
+    this->sub_boards[this->current_character]->character->add_cards(
+        std::vector<Card *>(this->discard_area.cards.begin(),
+                            this->discard_area.cards.begin() + min));
+    this->discard_area.erase(0, min);
 }
 
 void Board::set_id() {
@@ -60,17 +72,22 @@ void Board::set_id() {
 }
 
 void Board::play_cards() {
-    this->sub_boards[current_character]->character->select_card(true, 0, 0);
-    if (this->sub_boards[current_character]->character->selected_none()) {
+    this->sub_boards[this->current_character]->character->select_card(true, 0,
+                                                                      0);
+    if (this->sub_boards[this->current_character]->character->selected_none()) {
         // warn this!
     }
-    this->settle_area = this->sub_boards[current_character]->character->play_cards();
+    this->settle_area =
+        this->sub_boards[this->current_character]->character->play_cards();
 }
 
 void Board::settle_effects() {
-    for(auto it = this->settle_area.cards.begin();it != this->settle_area.cards.end();it++){
+    this->damage_list.clear();
+    for (auto it = this->settle_area.cards.begin();
+         it != this->settle_area.cards.end(); it++) {
         int number = face_to_num((*it)->face);
-        if( number != 0) this->damage_list.push_back(number);
+        if (number != 0)
+            this->damage_list.push_back(number);
     }
 
     BoardInfo *board_info = new BoardInfo(this);
@@ -79,4 +96,5 @@ void Board::settle_effects() {
     }
 
     this->settle_suits(this->settle_area.suits(), this->settle_area.sum());
+    this->settle_area.clear();
 }

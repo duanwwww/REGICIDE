@@ -33,9 +33,10 @@ void Character::set_max_cards_in_hand(int _max_cards_in_hand) {
 }
 
 bool Character::draw_card() {
-    if (this->not_full_hand()){
-        Card* card = this->cards_in_deck->draw_card();
-        if (card == nullptr) return false;
+    if (this->not_full_hand()) {
+        Card *card = this->cards_in_deck->draw_card();
+        if (card == nullptr)
+            return false;
         this->cards_in_hand.add(card);
         return true;
     }
@@ -46,8 +47,11 @@ Pile Character::play_cards() {
     std::sort(this->selected.begin(), this->selected.end(),
               [](int a, int b) { return a > b; });
     Pile tmp_pile;
-    for (auto it = this->selected.begin(); it != this->selected.end(); it++)
-        tmp_pile.add(this->cards_in_hand.erase(*it));
+    for (auto it = this->selected.begin(); it != this->selected.end(); it++) {
+        Card *tmp_pointer = this->cards_in_hand.erase(*it);
+        if (tmp_pointer != nullptr)
+            tmp_pile.add(tmp_pointer);
+    }
     return tmp_pile;
 }
 
@@ -55,8 +59,11 @@ Pile Character::discard() {
     std::sort(this->selected.begin(), this->selected.end(),
               [](int a, int b) { return a > b; });
     Pile tmp_pile;
-    for (auto it = this->selected.begin(); it != this->selected.end(); it++)
-        tmp_pile.add(this->cards_in_hand.erase(*it));
+    for (auto it = this->selected.begin(); it != this->selected.end(); it++) {
+        Card *tmp_pointer = this->cards_in_hand.erase(*it);
+        if (tmp_pointer != nullptr)
+            tmp_pile.add(tmp_pointer);
+    }
     return tmp_pile;
 }
 
@@ -70,6 +77,10 @@ bool Character::is_dead() {
 
 bool Character::is_honour_kill() {
     return this->hp == 0;
+}
+
+void Character::add_cards(std::vector<Card *> cards) {
+    this->cards_in_deck->add(std::list<Card *>(cards.begin(), cards.end()));
 }
 
 Character::~Character() {

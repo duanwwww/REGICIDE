@@ -34,7 +34,8 @@ public:
     void set_card_back(CardBack);
     void shuffle();
     int size();
-    Card *erase(int);
+    Card *erase(int); // YOU SHOULD CKECK NULLPTR
+    void erase(int, int);
     int sum();                 // sum of faces
     std::vector<bool> suits(); // union of suits
     friend class Board;

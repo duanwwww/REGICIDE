@@ -97,12 +97,20 @@ int Pile::size() {
     return this->cards.size();
 }
 
-Card *Pile::erase(int index) {
+Card *Pile::erase(int index) { // check nullptr
     if (index >= size())
         return nullptr;
     Card *tmp_card = this->cards[index];
     this->cards.erase(this->cards.begin() + index);
     return tmp_card;
+}
+
+void Pile::erase(int begin, int end) {
+    if (begin < 0)
+        begin = 0;
+    if (end > this->cards.size())
+        end = this->cards.size();
+    this->cards.erase(this->cards.begin() + begin, this->cards.begin() + end);
 }
 
 int Pile::sum() {

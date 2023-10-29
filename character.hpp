@@ -26,6 +26,7 @@ public:
     bool selected_none();
     bool is_dead();
     bool is_honour_kill();
-    virtual void update_count(const BattleInfo &) = 0;
+    virtual void update_counter(const BattleInfo &) = 0;
+    void add_cards(std::vector<Card *>);
     ~Character();
 };

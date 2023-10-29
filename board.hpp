@@ -27,15 +27,15 @@ private:
     std::vector<int> damage_list;
     std::vector<bool> available_suit;
     void settle_suits(std::vector<bool>, int);
-    void settle_club(int);    
-    void settle_diamond(int); 
-    void settle_heart(int);   // HAVE NOT FINISHED
-    void settle_spade(int);   // HAVE NOT FINISHED
+    void settle_club(int);
+    void settle_diamond(int);
+    void settle_heart(int);
+    void settle_spade(int); // HAVE NOT FINISHED
 public:
     Board(std::vector<Character *>);
     void set_id();
-    int select_target();     // HAVE NOT FINISHED
-    void play_cards();       // HAVE NOT FINISHED
+    int select_target(); // HAVE NOT FINISHED
+    void play_cards();
     void settle_effects();
     void deal_damage(); // HAVE NOT FINISHED
     void
