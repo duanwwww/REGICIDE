@@ -92,7 +92,7 @@ void Board::settle_effects() {
 
     BoardInfo *board_info = new BoardInfo(this);
     for (auto it = this->effects.begin(); it != this->effects.end(); it++) {
-        (*it).activate(*board_info);
+        (*it)->activate(*board_info);
     }
 
     this->settle_suits(this->settle_area.suits(), this->settle_area.sum());

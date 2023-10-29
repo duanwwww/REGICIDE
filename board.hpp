@@ -23,7 +23,7 @@ private:
     Pile settle_area;
     int current_character;
     int target_character; // -1 for none
-    std::vector<Effect> effects;
+    std::vector<Effect*> effects;
     std::vector<int> damage_list;
     std::vector<bool> available_suit;
     void settle_suits(std::vector<bool>, int);

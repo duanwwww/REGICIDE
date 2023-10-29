@@ -23,15 +23,6 @@ void Character::set_deck(Deck *_deck) {
     this->cards_in_deck = _deck;
 }
 
-void Character::set_max_cards_in_hand(int _max_cards_in_hand) {
-    this->max_cards_in_hand = _max_cards_in_hand;
-    if (this->cards_in_hand.size() > this->max_cards_in_hand) {
-        this->select_card(false, 0,
-                          cards_in_hand.size() - this->max_cards_in_hand);
-        discard();
-    }
-}
-
 bool Character::draw_card() {
     if (this->not_full_hand()) {
         Card *card = this->cards_in_deck->draw_card();
@@ -52,6 +43,7 @@ Pile Character::play_cards() {
         if (tmp_pointer != nullptr)
             tmp_pile.add(tmp_pointer);
     }
+    this->selected.clear();
     return tmp_pile;
 }
 
@@ -64,6 +56,7 @@ Pile Character::discard() {
         if (tmp_pointer != nullptr)
             tmp_pile.add(tmp_pointer);
     }
+    this->selected.clear();
     return tmp_pile;
 }
 

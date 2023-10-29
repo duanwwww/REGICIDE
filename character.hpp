@@ -15,7 +15,6 @@ protected:
 public:
     void set_hp(int);
     void set_deck(Deck *);
-    void set_max_cards_in_hand(int);
     bool draw_card();
     bool full_hand();
     void select_card(bool, int,
