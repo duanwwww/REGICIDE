@@ -1,6 +1,5 @@
 #include <card.hpp>
-
-int face_to_num(Face face) {
+inline int face2num(Face face) {
     switch (face) {
     case Face::Ace:
     case Face::Two:
@@ -24,41 +23,47 @@ int face_to_num(Face face) {
     }
 }
 
-Card::Card() {
+BasicCard::BasicCard() {
     this->face = Face::None;
-    this->suit = std::vector<bool>({false, false, false, false});
+    this->suit = SuitList{false, false, false, false};
+}
+
+BasicCard::BasicCard(Face _face, Suit _suit) {
+    this->face = _face;
+    this->suit = SuitList{false, false, false, false};
+    this->suit.suits[_suit] = true;
+}
+
+Face BasicCard::get_face() {
+    return this->face;
+}
+
+SuitList BasicCard::get_suit() {
+    return this->suit;
+}
+
+Card::Card() {
+    BasicCard();
+    this->sticker = Sticker::None;
+}
+
+Card::Card(Face _face, Suit _suit) {
+    BasicCard(_face, _suit);
     this->sticker = Sticker::None;
 }
 
 Card::Card(Face _face, Suit _suit, Sticker _sticker) {
-    this->face = _face;
-    this->suit = std::vector<bool>({false, false, false, false});
-    this->suit[_suit] = true;
+    BasicCard(_face, _suit);
     this->sticker = _sticker;
 }
 
-Card::Card(const Card &_card) {
-    this->face = _card.face;
-    this->suit = _card.suit;
-    this->sticker = _card.sticker;
-}
-
-void Card::set_face(Face _face) {
-    this->face = _face;
-}
-
-void Card::set_suit(Suit _suit) {
-    this->suit = std::vector<bool>({false, false, false, false});
-    this->suit[_suit] = true;
-}
-
-void Card::set_suit(std::vector<bool> _suit) {
-    this->suit = _suit;
-}
-
-void Card::set_sticker(Sticker _sticker) {
+bool Card::add_sticker(Sticker _sticker) {
+    if (this->sticker != Sticker::None)
+        return false;
     this->sticker = _sticker;
+    return true;
 }
 
-Card::~Card() {
+Sticker Card::get_sticker() {
+    return this->sticker;
 }

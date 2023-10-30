@@ -1,31 +1,46 @@
 #include <deck.hpp>
-class BattleInfo;
+#include <effect.hpp>
+#include <vector>
 class Character {
 private:
-    Deck *cards_in_deck;
-    Pile cards_in_hand;
-    int hp;
-    int max_cards_in_hand;
-    bool not_full_hand();
+    Deck *deck;
+    Self2TargetEffect *effect;
+
+protected:
+    Character(Deck *, Self2TargetEffect *);
+
+public:
+    Self2TargetEffect *get_effect();
+    DrawPile *set_up_deck();
+    virtual BoardCharacter *create_board_character(int, int) = 0;
+};
+
+class BoardCharacter {
+private:
+    CharacterInfo info;
+    DrawPile *draw_deck;
+    std::vector<Card *> cards_in_hand;
+    Self2TargetEffect *effect;
     std::vector<int> selected;
 
 protected:
-    Character(Deck *, int, int);
-
+    BoardCharacter(Character *, int, int,
+                   DrawPile *); // HP, max_cards_in_hand, deck;
 public:
-    void set_hp(int);
-    void set_deck(Deck *);
+    Pile *activate;
+    const int max_cards_in_hand;
     bool draw_card();
-    bool full_hand();
-    void select_card(bool, int,
-                     int); // input:(legal or any?, minimum sum, minimum
-                           // number). HAVE NOT FINISHED
-    Pile play_cards();
-    Pile discard();
-    bool selected_none();
-    bool is_dead();
-    bool is_honour_kill();
-    virtual void update_counter(const BattleInfo &) = 0;
-    void add_cards(std::vector<Card *>);
-    ~Character();
+    int num_deck();
+    int num_hand();
+    int left_HP();
+    CharacterInfo get_info();
+    void set_info(CharacterInfo);
+    bool select_cards(bool, int,
+                      int); // need to be legal or not, minimum sum, minimum
+                            // num. return false only if select none
+    void add_cards_to_deck(std::list<Card *>);
+    SettlePile *play_selected_cards(); // YOU SHOULD CHECK NULLPTR
+    Pile *be_damaged(int);             // YOU SHOULD CHECK NULLPTR
+    virtual Self2TargetEffect *get_effect() = 0;
+    virtual void update_counter(std::vector<int>) = 0;
 };

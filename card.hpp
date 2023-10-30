@@ -1,5 +1,9 @@
 #include <iostream>
-#include <vector>
+
+struct SuitList {
+    bool suits[4];
+};
+
 enum Face {
     None = 0,
     Ace,
@@ -15,7 +19,6 @@ enum Face {
     Jack,
     Queen,
     King,
-    Joker,
 };
 
 enum Suit {
@@ -27,32 +30,37 @@ enum Suit {
 
 enum Sticker {
     None,
-    Circle,
-    Square,
-    triangle,
+    Circle,   // can be played with any other cards
+    Square,   // add another suit
+    triangle, // upgrade
 };
 
 enum CardBack {
     None,
+    Classic,
 };
 
-int face_to_num(Face);
+inline int face2num(Face);
 
-class Card {
+class BasicCard {
 private:
     Face face;
-    std::vector<bool> suit; // suit[Club] suit[Diamond] suit[Heart] suit[Spade]
+    SuitList suit; // suit[Club] suit[Diamond] suit[Heart] suit[Spade]
+public:
+    BasicCard();
+    BasicCard(Face, Suit);
+    Face get_face();
+    SuitList get_suit();
+};
+
+class Card : public BasicCard {
+private:
     Sticker sticker;
 
 public:
     Card();
+    Card(Face, Suit);
     Card(Face, Suit, Sticker);
-    Card(const Card &);
-    void set_face(Face);
-    void set_suit(Suit);
-    void set_suit(std::vector<bool>);
-    void set_sticker(Sticker);
-    ~Card();
-    friend class Pile;
-    friend class Board;
+    bool add_sticker(Sticker);
+    Sticker get_sticker();
 };

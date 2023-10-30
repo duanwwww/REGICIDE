@@ -1,42 +1,36 @@
-#include <List>
 #include <card.hpp>
+#include <list>
 #include <vector>
-class Deck {
-private:
-    std::list<Card *> cards;
-    CardBack card_back;
-
-public:
-    Deck();
-    Deck(std::list<Card *>);
-    Deck(const Deck &);          // copy
-    void add(Card *);            // add to bottom
-    void add(std::list<Card *>); // add to bottom
-    void shuffle();
-    Card *draw_card(); // YOU SHOULD CHECK NULLPTR
-    void set_top(Card *);
-    void set_bottom(Card *);
-    void set_card_back(CardBack);
-    ~Deck();
-};
-
 class Pile {
+protected:
+    std::list<Card *> cards;
+
 private:
-    std::vector<Card *> cards;
     CardBack card_back;
 
 public:
     Pile();
-    Pile(std::vector<Card *>);
-    void add(Card *);
-    void add(std::vector<Card *>);
-    void clear();
+    Pile(std::list<Card *>);
     void set_card_back(CardBack);
+    void add(Card *);
+    void add(std::list<Card *>);
+    void add(Pile *);
+    void clear();
     void shuffle();
     int size();
-    Card *erase(int); // YOU SHOULD CKECK NULLPTR
-    void erase(int, int);
-    int sum();                 // sum of faces
-    std::vector<bool> suits(); // union of suits
-    friend class Board;
+    std::list<Card *> erase_front(int);
 };
+
+class SettlePile : public Pile {
+public:
+    int sum();        // sum of faces
+    SuitList suits(); // union of suits
+    std::vector<int> all();
+};
+
+class DrawPile : public Pile {
+public:
+    Card *draw_cards(); // YOU SHOULD CHECK NULLPTR
+};
+
+class Deck; // HAVE NOT FINISHED YET
