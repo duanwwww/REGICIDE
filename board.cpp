@@ -75,7 +75,7 @@ void Board::play_cards() {
 
 void Board::settle_effects() {
     this->characters[this->current_character]->update_ATK_effect();
-    if(this->target_character != -1){
+    if (this->target_character != -1) {
         this->characters[this->target_character]->update_DEF_effect();
     }
     SuitList tmp_suit = this->available_suit;
@@ -86,12 +86,26 @@ void Board::settle_effects() {
     if (this->target_character != -1) {
         tmp_info.target = this->characters[this->target_character]->get_info();
     }
-    for (auto it = this->characters[this->current_character]->get_ATK_effects_stack().begin(); it != this->characters[this->current_character]->get_ATK_effects_stack().end(); it++) {
+    for (auto it = this->characters[this->current_character]
+                       ->get_ATK_effects_stack()
+                       .begin();
+         it != this->characters[this->current_character]
+                   ->get_ATK_effects_stack()
+                   .end();
+         it++) {
         tmp_info = ((*it)->activate(tmp_info));
-    }   
-    if(this->target_character != 0){for (auto it = this->characters[this->target_character]->get_DEF_effects_stack().begin(); it != this->characters[this->target_character]->get_DEF_effects_stack().end(); it++) {
-        tmp_info = ((*it)->activate(tmp_info));
-    }}   
+    }
+    if (this->target_character != 0) {
+        for (auto it = this->characters[this->target_character]
+                           ->get_DEF_effects_stack()
+                           .begin();
+             it != this->characters[this->target_character]
+                       ->get_DEF_effects_stack()
+                       .end();
+             it++) {
+            tmp_info = ((*it)->activate(tmp_info));
+        }
+    }
     this->characters[this->current_character]->set_info(tmp_info.self);
     if (this->target_character != -1)
         this->characters[this->target_character]->set_info(tmp_info.target);
@@ -129,8 +143,8 @@ void Board::deal_damage() {
                     ->get_info()
                     .DEF_coefficient != 0) {
                 (*it) = (*it) / this->characters[this->target_character]
-                                      ->get_info()
-                                      .DEF_coefficient;
+                                    ->get_info()
+                                    .DEF_coefficient;
             }
 
             Pile *tmp_ptr =
@@ -142,18 +156,19 @@ void Board::deal_damage() {
     }
 }
 
-void Board::end_round(){
+void Board::end_round() {
     this->update_counter(this->damage_list);
     this->damage_list.clear();
-    this->current_character = (this->current_character + 1) % this->characters.size();
+    this->current_character =
+        (this->current_character + 1) % this->characters.size();
     this->target_character = -1;
 }
 
-int Board::left_HP(){
+int Board::left_HP() {
     return this->characters[this->target_character]->left_HP();
 }
 
-void Board::start_round(){
+void Board::start_round() {
     this->characters[this->current_character]->new_round();
 }
 

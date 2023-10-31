@@ -4,13 +4,13 @@
 class Character {
 private:
     Deck *deck;
-    std::vector<Self2TargetEffect *>effects;
+    std::vector<Self2TargetEffect *> effects;
 
 protected:
     Character(Deck *, std::vector<Self2TargetEffect *>);
 
 public:
-    std::vector<Self2TargetEffect *>get_effect();
+    std::vector<Self2TargetEffect *> get_effect();
     DrawPile *set_up_deck();
     virtual BoardCharacter *create_board_character(int, int) = 0;
 };
@@ -20,10 +20,11 @@ private:
     CharacterInfo info;
     DrawPile *draw_deck;
     std::vector<Card *> cards_in_hand;
-    std::vector<Self2TargetEffect *>effects;
+    std::vector<Self2TargetEffect *> effects;
     std::vector<int> selected;
     std::vector<Self2TargetEffect *> ATK_effects_stack;
     std::vector<Self2TargetEffect *> DEF_effects_stack;
+
 protected:
     BoardCharacter(Character *, int, int,
                    DrawPile *); // HP, max_cards_in_hand, deck;

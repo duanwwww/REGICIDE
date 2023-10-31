@@ -1,11 +1,11 @@
 #include <algorithm>
 #include <character.hpp>
-Character::Character(Deck *_deck, std::vector<Self2TargetEffect *>_effects) {
+Character::Character(Deck *_deck, std::vector<Self2TargetEffect *> _effects) {
     this->deck = _deck;
     this->effects = _effects;
 }
 
-std::vector<Self2TargetEffect *>Character::get_effect() {
+std::vector<Self2TargetEffect *> Character::get_effect() {
     return this->effects;
 }
 
@@ -57,11 +57,11 @@ void BoardCharacter::add_cards_to_deck(std::list<Card *> _cards) {
     this->draw_deck->add(_cards);
 }
 
-std::vector<Self2TargetEffect*> BoardCharacter::get_ATK_effects_stack() {
+std::vector<Self2TargetEffect *> BoardCharacter::get_ATK_effects_stack() {
     return this->ATK_effects_stack;
 }
 
-std::vector<Self2TargetEffect*> BoardCharacter::get_DEF_effects_stack() {
+std::vector<Self2TargetEffect *> BoardCharacter::get_DEF_effects_stack() {
     return this->DEF_effects_stack;
 }
 
@@ -85,17 +85,19 @@ Pile *BoardCharacter::be_damaged(int _damage) {
     return nullptr;
 }
 
-void BoardCharacter::new_round(){
-    for(auto it = this->ATK_effects_stack.end() - 1; it >= this->ATK_effects_stack.begin(); it--){
+void BoardCharacter::new_round() {
+    for (auto it = this->ATK_effects_stack.end() - 1;
+         it >= this->ATK_effects_stack.begin(); it--) {
         (*it)->new_round();
-        if(! (*it)->still_activate()){
+        if (!(*it)->still_activate()) {
             this->ATK_effects_stack.erase(it);
-        } 
+        }
     }
-    for(auto it = this->DEF_effects_stack.end() - 1; it >= this->DEF_effects_stack.begin(); it--){
+    for (auto it = this->DEF_effects_stack.end() - 1;
+         it >= this->DEF_effects_stack.begin(); it--) {
         (*it)->new_round();
-        if(! (*it)->still_activate()){
+        if (!(*it)->still_activate()) {
             this->DEF_effects_stack.erase(it);
-        } 
+        }
     }
 }

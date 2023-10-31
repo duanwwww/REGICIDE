@@ -13,6 +13,7 @@ private:
     void settle_heart(int);
     void settle_spade(int);
     void update_counter(std::vector<int>);
+
 public:
     Board(std::vector<Character *>, int, int, SuitList);
     int select_target();
