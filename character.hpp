@@ -31,6 +31,7 @@ protected:
 public:
     Pile *activate;
     const int max_cards_in_hand;
+    void set_draw_deck(DrawPile* );
     bool draw_card();
     int num_deck();
     int num_hand();

@@ -23,6 +23,10 @@ BoardCharacter::BoardCharacter(Character *_character, int _HP,
     this->effects = _character->get_effect();
 }
 
+void BoardCharacter::set_draw_deck(DrawPile* _draw_deck){
+    this->draw_deck = _draw_deck;
+}
+
 bool BoardCharacter::draw_card() {
     Card *tmp = this->draw_deck->draw_cards();
     if (tmp == nullptr)
