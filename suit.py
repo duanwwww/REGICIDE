@@ -33,7 +33,7 @@ def spade_buff_function(rank_sum: int):
 def spade_effect_function(board: BasicBoard) -> BasicBoard:
     for character_ID in board.targets_list:
         character_manager(character_ID).buffs.append(Buff(buff_type=BuffType.AtkDebuff, function=spade_buff_function(board.settle_rank_sum), counter=Counter(counter_type=CounterType.ParamentCounter, remaining=1)))    
-
+    return board
 
 club_effect = Effect(function=club_effect_function, name="Club Effect Function")
 
