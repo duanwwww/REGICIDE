@@ -36,6 +36,10 @@ class BasicBoard:
         self.current_state = current_state
         self.next_state = next_state
         self.board_facade = board_facade
+        self.settle_area = []
+        self.settle_rank_sum = 0
+        self.damage_list = []
+        self.effect_target = None
     
     def next_state(self):
         self.current_state = self.next_state
