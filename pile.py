@@ -6,43 +6,43 @@ from manager import card_manager
 # 此文件定义套牌类Deck, 牌堆类Pile
 
 class Deck:
-    def __init__(self, *, card_ids: List[int], name: str):
-        self.card_ids = card_ids
+    def __init__(self, *, card_IDs: List[int], name: str):
+        self.card_IDs = card_IDs
         self.name = name
 
     def add_card(self, *, card_id: int):
         # 添加一张牌
-        self.card_ids.append(card_id)
+        self.card_IDs.append(card_id)
 
     def remove_card(self, *, card_id: int):
         # 去除一张牌
-        self.card_ids.remove(card_id)
+        self.card_IDs.remove(card_id)
 
     def create_draw_deck(self, *, max_card_num):
         # 创建牌堆
-        return Pile(card_ids=self.card_ids, max_card_num=max_card_num)
+        return Pile(card_IDs=self.card_IDs, max_card_num=max_card_num)
 
 class Pile:
-    def __init__(self, *, card_ids: List[int], max_card_num: int):
-        assert len(card_ids) <= max_card_num # 当前张数不得超过最大张数
-        self.card_ids = card_ids
+    def __init__(self, *, card_IDs: List[int], max_card_num: int):
+        assert len(card_IDs) <= max_card_num # 当前张数不得超过最大张数
+        self.card_IDs = card_IDs
         self.max_card_num = max_card_num
         self.card_list, self.draw_at_start = self.reset()
-        self.card_num = len(card_ids) - len(self.draw_at_start)
+        self.card_num = len(card_IDs) - len(self.draw_at_start)
 
     def reset(self):
         # 重置牌堆，返回洗混后的牌堆列表和对战开始时抽到手里的牌
         self.card_list = []
-        top_cards = [card_manager[id] for id in self.card_ids if card_manager[id].type == CardType.Top]
+        top_cards = [card_manager[id] for id in self.card_IDs if card_manager[id].type == CardType.Top]
         shuffle(top_cards)
         self.card_list.append(top_cards)
-        middle_cards = [card_manager[id] for id in self.card_ids if card_manager[id].type == CardType.Middle]
+        middle_cards = [card_manager[id] for id in self.card_IDs if card_manager[id].type == CardType.Middle]
         shuffle(middle_cards)
         self.card_list.append(middle_cards)
-        bottom_cards = [card_manager[id] for id in self.card_ids if card_manager[id].type == CardType.Bottom]
+        bottom_cards = [card_manager[id] for id in self.card_IDs if card_manager[id].type == CardType.Bottom]
         shuffle(bottom_cards)
         self.card_list.append(bottom_cards)
-        return self.card_list, [card_manager[id] for id in self.card_ids if card_manager[id].type == CardType.DrawAtStart]
+        return self.card_list, [card_manager[id] for id in self.card_IDs if card_manager[id].type == CardType.DrawAtStart]
         
     def add_to_top(self, *, cards: List[Card]) -> bool:
         # 在牌堆顶添加
