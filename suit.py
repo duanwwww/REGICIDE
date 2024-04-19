@@ -1,5 +1,5 @@
 from enum import Enum
-from basicboard import BasicBoard, RoundState
+from basic_board import BasicBoard, RoundState
 from manager import (group_manager, character_manager) # a dict, from ID to object
 from effect import (Effect, Counter, CounterType)
 from buff import (Buff, BuffType)

@@ -33,3 +33,17 @@ class Card:
     def activate_effect(self, board: BasicBoard) -> BasicBoard:
         # 触发卡牌的效果
         return self.effect.activate(board)
+    
+    def __str__(self) -> str:
+        return "\n\
+                [Card] | id: {id} \n\
+                [Card] | suit: {suit} \n\
+                [Card] | rank: {rank} \n\
+                [Card] | sticker: {sticker} \n\
+                [Card] | type: {type} \n".format(
+                    id = self.card_ID,
+                    suit = self.suit,
+                    rank = self.rank,
+                    sticker = self.sticker,
+                    type = self.type
+                )

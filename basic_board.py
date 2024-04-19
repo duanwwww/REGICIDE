@@ -40,6 +40,7 @@ class BasicBoard:
         self.settle_rank_sum = 0
         self.damage_list = []
         self.effect_target = None
+        self.whom_to_be_settle_list = []
     
     def next_state(self):
         self.current_state = self.next_state
@@ -51,3 +52,25 @@ class BasicBoard:
             if character_id in group_manager[group_ID].character_IDs:
                 main_player = character_manager[character_id]
         main_player.set_round_counter()
+
+    def __str__(self) -> str:
+        return "\n\
+                [BasicBoard] | group_ids: {my_group_ids} \n\
+                [BasicBoard] | current group id: {current_group_id} \n\
+                [BasicBoard] | round: No.{round_num} \n\
+                [BasicBoard] | state: {current_state} \n\
+                [BasicBoard] | settle area: {settle_area} \n\
+                [BasicBoard] | settle sum: {rank_sum} \n\
+                [BasicBoard] | damage list: {damage_list} \n\
+                [BasicBoard] | target: {target} \n\
+                [BasicBoard] | whom to be settle list: {settle_list} \n".format(
+                    my_group_ids = str([str(x) for x in self.group_IDs]).replace('\\n', '\n'),
+                    current_group_id = self.group_IDs[self.current_group_ID_index],
+                    round_num = self.current_round,
+                    current_state = self.current_state,
+                    settle_area = str(self.settle_area),
+                    rank_sum = self.settle_rank_sum,
+                    damage_list = str(self.damage_list),
+                    target = str(self.effect_target),
+                    settle_list = str([str(x) for x in self.whom_to_be_settle_list]).replace('\\n', '\n')
+                )   

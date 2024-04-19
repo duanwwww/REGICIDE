@@ -21,6 +21,14 @@ class Deck:
     def create_draw_deck(self, *, max_card_num):
         # 创建牌堆
         return Pile(card_IDs=self.card_IDs, max_card_num=max_card_num)
+    
+    def __str__(self) -> str:
+        return "\n\
+                [Deck] | name: {name} \n\
+                [Deck] | card_ids: {my_card_ids} \n".format(
+                    name = self.name,
+                    my_card_ids = self.card_IDs
+                )
 
 class Pile:
     def __init__(self, *, card_IDs: List[int], max_card_num: int):
@@ -35,13 +43,13 @@ class Pile:
         self.card_list = []
         top_cards = [card_manager[id] for id in self.card_IDs if card_manager[id].type == CardType.Top]
         shuffle(top_cards)
-        self.card_list.append(top_cards)
+        self.card_list += top_cards
         middle_cards = [card_manager[id] for id in self.card_IDs if card_manager[id].type == CardType.Middle]
         shuffle(middle_cards)
-        self.card_list.append(middle_cards)
+        self.card_list += middle_cards
         bottom_cards = [card_manager[id] for id in self.card_IDs if card_manager[id].type == CardType.Bottom]
         shuffle(bottom_cards)
-        self.card_list.append(bottom_cards)
+        self.card_list += bottom_cards
         return self.card_list, [card_manager[id] for id in self.card_IDs if card_manager[id].type == CardType.DrawAtStart]
         
     def add_to_top(self, *, cards: List[Card]) -> bool:
@@ -69,7 +77,7 @@ class Pile:
         self.card_num -= number
         return tmp
     
-    def draw(self) -> Card | None:
+    def draw(self) -> Card: # | None
         # 抽一张牌
         if self.card_num > 0:
             card = self.card_list[0]
@@ -77,3 +85,12 @@ class Pile:
             self.card_num -= 1
             return card
         return None
+    
+    def __str__(self) -> str:
+        return "\n\
+                [Pile] | num: {num} / {max_num} \n\
+                [Pile] | card list: {card_list} \n".format(
+                    num = self.card_num,
+                    max_num = self.max_card_num,
+                    card_list = str([str(x) for x in self.card_list]).replace('\\n', '\n')
+                )

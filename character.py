@@ -5,6 +5,7 @@ from buff import Buff
 from pile import Pile
 from card import Card
 from counter import Counter, SkillCounter, CounterType
+from types import FunctionType as function
 
 class Skill:
     def __init__(self, *, effects: List[Effect], cd_counter: SkillCounter, select_target_function: function, skill_ID: int):
@@ -94,6 +95,34 @@ class Character:
         for card in cards:
             board.settle_area.append(card)
         
+    def __str__(self) -> str:
+        return "\n\
+                [Character] | name: {name} \n\
+                [Character] | id: {id} \n\
+                [Character] | HP: {HP} / {max_HP} \n\
+                [Character] | buffes: {buffes} \n\
+                [Character] | draw pile: {draw_pile} \n\
+                [Character] | max cards in hand: {max_hand} \n\
+                [Character] | cards in hand: {cards_in_hand} \n\
+                [Character] | state: {character_state} \n\
+                [Character] | round start effects: {round_start_effects} \n\
+                [Character] | judge survival effect: {survival_effect} \n\
+                [Character] | die effect: {die_effect} \n\
+                [Character] | switch effect: {switch_effect} \n".format(
+                    name = self.name,
+                    id = self.character_ID,
+                    HP = self.current_HP,
+                    max_HP = self.max_HP,
+                    buffes = str([str(x) for x in self.buffes]).replace('\\n', '\n'),
+                    draw_pile = str(self.draw_pile),
+                    max_hand = self.max_cards_in_hand,
+                    cards_in_hand = str([str(x) for x in self.cards_in_hand]).replace('\\n', '\n'),
+                    character_state = self.character_state,
+                    round_start_effects = str([str(x) for x in self.round_start_effects]).replace('\\n', '\n'),
+                    survival_effect = self.judge_survival_effect,
+                    die_effect = self.die_effect,
+                    switch_effect = self.switch_effect
+                )
             
 
 

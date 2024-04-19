@@ -14,6 +14,15 @@ class Manager:
         del self.data[key]
         return True
     
+    def __setitem__(self, id, value):
+        self.data[id] = value
+
+    def __getitem__(self, id):
+        return self.data[id]
+    
+    def __str__(self) -> str:
+        return str(self.data)
+    
 group_manager = Manager()
 card_manager = Manager()
 character_manager = Manager()
